@@ -1,0 +1,137 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: var(--font-sans);
+    --font-heading: var(--font-sans);
+    --font-mono: var(--font-mono);
+    /* Cores da marca como utilitários: bg-brand, text-signal, bg-graphite... */
+    --color-brand: var(--brand);
+    --color-brand-deep: var(--brand-deep);
+    --color-signal: var(--signal);
+    --color-graphite: var(--graphite);
+    --color-panel: var(--panel);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+/* Tema único (escuro): preto e grafite, vermelho do "SA", branco do "KAIZEN", amarelo só no símbolo do motor */
+:root {
+    --brand: #e11d2a;
+    --brand-deep: #8f0f18;
+    --signal: #f5c400;
+    --graphite: #141518;
+    --panel: #1b1c20;
+
+    --background: #0b0b0d;
+    --foreground: #f4f4f5;
+    --card: #141518;
+    --card-foreground: #f4f4f5;
+    --popover: #141518;
+    --popover-foreground: #f4f4f5;
+    --primary: var(--brand);
+    --primary-foreground: #ffffff;
+    --secondary: #1f2025;
+    --secondary-foreground: #f4f4f5;
+    --muted: #1f2025;
+    --muted-foreground: #a3a3ad;
+    --accent: #23242a;
+    --accent-foreground: #f4f4f5;
+    --destructive: var(--brand);
+    --border: rgba(255, 255, 255, .1);
+    --input: rgba(255, 255, 255, .14);
+    --ring: var(--brand);
+    --radius: 0.75rem;
+    color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+/* ---------- Estilos que o Tailwind não expressa bem ---------- */
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+.container { width: min(1240px, 100% - 32px); max-width: none; margin-inline: auto; } /* sobrescreve o .container do Tailwind */
+
+/* Quadriculado de tela de osciloscópio */
+.scope-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
+  background-size: 10% 12.5%;
+}
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Onda do osciloscópio rolando: o padrão é repetido 2x e desloca metade da largura */
+.wave-scroll { animation: wave 6s linear infinite; }
+@keyframes wave { to { transform: translateX(-50%); } }
+
+/* Linha de varredura passando pela tela */
+.scan-sweep { animation: sweep 3.2s cubic-bezier(.5, 0, .5, 1) infinite; }
+@keyframes sweep { from { transform: translateX(-100%); } to { transform: translateX(1000%); } }
+
+/* Barras de leitura dos sistemas */
+.scan-bar { animation: scanbar 2.8s ease-in-out infinite; transform-origin: left; }
+@keyframes scanbar { 0% { transform: scaleX(.08); } 60%, 100% { transform: scaleX(1); } }
+
+/* Faixa de sistemas rolando */
+.marquee { animation: marquee 96s linear infinite; } /* 3x mais longa que antes, mesma velocidade */
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Luz de alerta do painel (CTA final) */
+.warn-glow { animation: glow 2.4s ease-in-out infinite; }
+@keyframes glow { 0%, 100% { filter: drop-shadow(0 0 6px rgba(245, 196, 0, .35)); opacity: .85; } 50% { filter: drop-shadow(0 0 22px rgba(245, 196, 0, .8)); opacity: 1; } }
+
+/* Entrada do hero em CSS: conteúdo visível mesmo sem JavaScript */
+.rise { animation: rise .8s cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+
+/* Entrada suave ao rolar (navegadores sem suporte mostram tudo direto) */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(32px); } }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
