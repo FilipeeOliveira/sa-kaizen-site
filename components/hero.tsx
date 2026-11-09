@@ -22,11 +22,6 @@ export function Hero() {
 
       <div className="container grid min-h-svh grid-cols-1 items-center gap-12 pt-28 pb-16 md:pb-32 lg:pb-40 lg:grid-cols-[1.1fr_.9fr] lg:gap-16 lg:pt-32">
         <div className="flex min-w-0 flex-col items-start gap-6">
-          <span className="rise inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm text-white/80 backdrop-blur" style={delay(0.05)}>
-            <span className="size-1.5 rounded-full bg-brand" aria-hidden="true" />
-            Diagnóstico automotivo em Manaus - AM
-          </span>
-
           <h1 className="rise text-[clamp(2.1rem,1.3rem+3.9vw,4.6rem)] leading-[1.02] font-extrabold tracking-[-0.025em] text-balance font-stretch-semi-expanded" style={delay(0.12)}>
             Seu carro apresenta um problema? <span className="text-brand">Nós encontramos a causa.</span>
           </h1>
