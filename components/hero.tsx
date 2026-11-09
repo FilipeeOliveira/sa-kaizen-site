@@ -3,6 +3,7 @@
 import { ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScopePanel } from '@/components/scope-panel';
+import { SignalBackdrop } from '@/components/signal-backdrop';
 import { WhatsAppIcon } from '@/components/icons';
 import { whatsapp } from '@/lib/contact';
 
@@ -16,8 +17,10 @@ export function Hero() {
       <div className="tech-grid absolute inset-0 -z-20" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_15%_85%,rgba(225,29,42,.22),transparent_70%)]" />
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background/70 via-background/40 to-background" />
+      {/* sinal atravessando o fundo, numa faixa reservada abaixo do conteúdo (pb do container); fora do celular */}
+      <SignalBackdrop className="-z-10 bottom-0 hidden md:block" />
 
-      <div className="container grid min-h-svh grid-cols-1 items-center gap-12 pt-28 pb-16 lg:grid-cols-[1.1fr_.9fr] lg:gap-16 lg:pt-32">
+      <div className="container grid min-h-svh grid-cols-1 items-center gap-12 pt-28 pb-16 md:pb-32 lg:pb-40 lg:grid-cols-[1.1fr_.9fr] lg:gap-16 lg:pt-32">
         <div className="flex min-w-0 flex-col items-start gap-6">
           <span className="rise inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm text-white/80 backdrop-blur" style={delay(0.05)}>
             <span className="size-1.5 rounded-full bg-brand" aria-hidden="true" />

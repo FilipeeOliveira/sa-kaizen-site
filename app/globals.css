@@ -103,6 +103,9 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 .wave-scroll { animation: wave 6s linear infinite; }
 @keyframes wave { to { transform: translateX(-50%); } }
 
+/* Sinal atravessando o fundo do hero */
+.signal-scroll { animation: wave 48s linear infinite; }
+
 /* Linha de varredura passando pela tela */
 .scan-sweep { animation: sweep 3.2s cubic-bezier(.5, 0, .5, 1) infinite; }
 @keyframes sweep { from { transform: translateX(-100%); } to { transform: translateX(1000%); } }
