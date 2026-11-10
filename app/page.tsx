@@ -1,9 +1,11 @@
+import Image from 'next/image';
 import { Check, Clock, Crosshair, Cpu, MapPin, MessagesSquare, Navigation, Phone, Wrench, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SiteHeader } from '@/components/site-header';
 import { Hero } from '@/components/hero';
 import { Services } from '@/components/services';
 import { Faq } from '@/components/faq';
+import { Testimonials } from '@/components/testimonials';
 import { ProcessCards, ProcessSection } from '@/components/process';
 import { SectionBadge, h2Class as h2 } from '@/components/section';
 import { WhatsAppFloat } from '@/components/whatsapp-float';
@@ -112,19 +114,17 @@ export default function Home() {
         <section id="sobre" className="bg-graphite py-24 lg:py-32">
           <div className="container grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
             <div className="reveal relative pb-16 sm:pb-20">
-              <img
+              <Image
                 src="/img/oficina-noite.webp"
                 width={640}
                 height={640}
-                loading="lazy"
                 alt="Fachada da SA Kaizen à noite, com o letreiro iluminado e um carro estacionado em frente"
                 className="aspect-square w-full rounded-2xl object-cover ring-1 ring-white/10 sm:w-[85%]"
               />
-              <img
+              <Image
                 src="/img/oficina-dia.webp"
                 width={802}
                 height={457}
-                loading="lazy"
                 alt="Fachada da SA Kaizen durante o dia"
                 className="absolute right-0 bottom-0 w-[62%] rounded-xl object-cover shadow-2xl ring-4 ring-graphite"
               />
@@ -155,6 +155,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <Testimonials />
 
         {/* Localização */}
         <section id="localizacao" className="py-24 lg:py-32">

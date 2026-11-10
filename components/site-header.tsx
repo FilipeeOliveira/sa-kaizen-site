@@ -3,6 +3,7 @@
 // Adaptado do navbar do bloco Shadcn Space "hero-33": translúcido sobre o hero, com telefone e CTA,
 // e menu lateral (Sheet) no mobile.
 import { useEffect, useState } from 'react';
+import { LazyMotion, domMax, m } from 'motion/react';
 import { ChevronRight, Equal, Phone, X } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
@@ -10,16 +11,20 @@ import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { telefone, telHref, whatsapp } from '@/lib/contact';
 import { cn } from '@/lib/utils';
+import { useActiveSection } from '@/hooks/use-active-section';
 
 const links = [
   { title: 'Serviços', href: '#servicos' },
   { title: 'Como funciona', href: '#como-funciona' },
   { title: 'Sobre', href: '#sobre' },
+  { title: 'Avaliações', href: '#avaliacoes' },
   { title: 'Localização', href: '#localizacao' },
 ];
+const ids = links.map((l) => l.href.slice(1));
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const ativo = useActiveSection(ids);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -41,13 +46,35 @@ export function SiteHeader() {
             <Logo />
           </a>
           <Separator orientation="vertical" className="my-auto hidden h-6 bg-foreground/20 lg:block" />
-          <div className="hidden items-center gap-1 lg:flex">
-            {links.map((l) => (
-              <a key={l.href} href={l.href} className="rounded-full px-3 py-1.5 text-sm font-medium text-foreground/70 transition-colors hover:bg-white/5 hover:text-foreground">
-                {l.title}
-              </a>
-            ))}
-          </div>
+          {/* seção ativa destacada; o fundo desliza de um link para o outro (motion layoutId) */}
+          <LazyMotion features={domMax}>
+            <div className="hidden items-center gap-1 lg:flex">
+              {links.map((l) => {
+                const atual = ativo === l.href.slice(1);
+                return (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    aria-current={atual ? 'true' : undefined}
+                    className={cn(
+                      'relative rounded-full px-3 py-1.5 text-sm font-medium transition-colors hover:text-foreground',
+                      atual ? 'text-foreground' : 'text-foreground/70',
+                    )}
+                  >
+                    {atual && (
+                      <m.span
+                        layoutId="menu-ativo"
+                        transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                        className="absolute inset-0 -z-10 rounded-full bg-white/10 ring-1 ring-white/10"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {l.title}
+                  </a>
+                );
+              })}
+            </div>
+          </LazyMotion>
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
@@ -84,7 +111,14 @@ export function SiteHeader() {
             <div className="flex flex-col gap-1">
               {links.map((l) => (
                 <SheetClose key={l.href} asChild>
-                  <a href={l.href} className="rounded-lg px-3 py-3 text-2xl font-bold tracking-tight font-stretch-semi-expanded transition-colors hover:bg-white/5">
+                  <a
+                    href={l.href}
+                    aria-current={ativo === l.href.slice(1) ? 'true' : undefined}
+                    className={cn(
+                      'rounded-lg px-3 py-3 text-2xl font-bold tracking-tight font-stretch-semi-expanded transition-colors hover:bg-white/5',
+                      ativo === l.href.slice(1) && 'text-brand',
+                    )}
+                  >
                     {l.title}
                   </a>
                 </SheetClose>

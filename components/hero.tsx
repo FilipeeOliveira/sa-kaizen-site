@@ -1,6 +1,7 @@
 // Layout em duas colunas inspirado no bloco Shadcn Space "hero-33"; no lugar do vídeo, a foto noturna
 // da fachada desfocada ao fundo e a tela de diagnóstico à direita. Entrada em CSS (.rise).
-import { ArrowDown } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowDown, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScopePanel } from '@/components/scope-panel';
 import { SignalBackdrop } from '@/components/signal-backdrop';
@@ -13,7 +14,7 @@ const delay = (s: number) => ({ animationDelay: `${s}s` });
 export function Hero() {
   return (
     <section id="inicio" className="relative isolate overflow-hidden">
-      <img src="/img/hero-bg.webp" alt="" className="absolute inset-0 -z-30 size-full object-cover opacity-35" />
+      <Image src="/img/hero-bg.webp" alt="" fill priority sizes="100vw" className="-z-30 object-cover opacity-35" />
       <div className="tech-grid absolute inset-0 -z-20" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_15%_85%,rgba(225,29,42,.22),transparent_70%)]" />
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background/70 via-background/40 to-background" />
@@ -22,6 +23,16 @@ export function Hero() {
 
       <div className="container grid min-h-svh grid-cols-1 items-center gap-12 pt-28 pb-16 md:pb-32 lg:pb-40 lg:grid-cols-[1.1fr_.9fr] lg:gap-16 lg:pt-32">
         <div className="flex min-w-0 flex-col items-start gap-6">
+          {/* prova social: leva às avaliações reais (sem nota média: ainda não confirmada) */}
+          <a
+            href="#avaliacoes"
+            className="rise group inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 py-2 pr-4 pl-3 text-sm backdrop-blur transition-colors hover:border-signal/40"
+            style={delay(0.04)}
+          >
+            <Star className="size-3.5 fill-signal text-signal" aria-hidden="true" />
+            <span className="text-white/75">Veja o que os clientes dizem no Google Maps</span>
+          </a>
+
           <h1 className="rise text-[clamp(2.1rem,1.3rem+3.9vw,4.6rem)] leading-[1.02] font-extrabold tracking-[-0.025em] text-balance font-stretch-semi-expanded" style={delay(0.12)}>
             Seu carro apresenta um problema? <span className="text-brand">Nós encontramos a causa.</span>
           </h1>
@@ -45,6 +56,7 @@ export function Hero() {
               </a>
             </Button>
           </div>
+
 
           <ul className="rise mt-2 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs tracking-[0.12em] text-white/55 uppercase" style={delay(0.36)} aria-label="Sistemas atendidos">
             {sistemas.map((s) => (

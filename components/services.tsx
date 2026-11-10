@@ -108,8 +108,9 @@ export function Services() {
                   <div
                     key={s.id}
                     className={cn(
-                      'col-start-1 row-start-1 flex flex-col gap-6 transition-opacity duration-300',
-                      ativo === i ? 'visible opacity-100' : 'invisible opacity-0',
+                      'col-start-1 row-start-1 flex flex-col gap-6 transition-[opacity,visibility]',
+                      // o que sai some rápido e o que entra aparece logo depois: sem textos sobrepostos no meio da troca
+                      ativo === i ? 'visible opacity-100 delay-100 duration-300' : 'invisible opacity-0 duration-100',
                     )}
                   >
                     <h3 className="text-3xl font-bold tracking-tight font-stretch-semi-expanded">{s.titulo}</h3>
