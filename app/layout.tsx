@@ -42,7 +42,7 @@ const jsonLd = [
     '@type': 'AutoRepair',
     name: siteConfig.nome,
     url: siteConfig.url,
-    image: `${siteConfig.url}/img/oficina-noite.webp`,
+    image: `${siteConfig.url}/img/fachada.webp`,
     logo: `${siteConfig.url}/img/icone-512.png`,
     telephone: telefone,
     address: {

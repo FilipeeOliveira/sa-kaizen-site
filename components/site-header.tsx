@@ -57,7 +57,7 @@ export function SiteHeader() {
                     href={l.href}
                     aria-current={atual ? 'true' : undefined}
                     className={cn(
-                      'relative rounded-full px-3 py-1.5 text-sm font-medium transition-colors hover:text-foreground',
+                      'relative rounded-full px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors hover:text-foreground',
                       atual ? 'text-foreground' : 'text-foreground/70',
                     )}
                   >
@@ -78,7 +78,8 @@ export function SiteHeader() {
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <a href={telHref} className="flex items-center gap-2 text-sm whitespace-nowrap text-foreground/85 transition-colors hover:text-foreground">
+          {/* telefone só a partir de 1280px: em 1024px o menu não cabia numa linha */}
+          <a href={telHref} className="hidden items-center gap-2 text-sm whitespace-nowrap xl:flex text-foreground/85 transition-colors hover:text-foreground">
             <Phone className="size-4 text-brand" aria-hidden="true" />
             {telefone}
           </a>

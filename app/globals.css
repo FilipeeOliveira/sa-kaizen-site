@@ -85,34 +85,13 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 .container { width: min(1240px, 100% - 32px); max-width: none; margin-inline: auto; } /* sobrescreve o .container do Tailwind */
 
-/* Quadriculado de tela de osciloscópio */
-.scope-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
-  background-size: 10% 12.5%;
-}
+/* Quadriculado técnico de fundo */
 .tech-grid {
   background-image:
     linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
   background-size: 48px 48px;
 }
-
-/* Onda do osciloscópio rolando: o padrão é repetido 2x e desloca metade da largura */
-.wave-scroll { animation: wave 6s linear infinite; }
-@keyframes wave { to { transform: translateX(-50%); } }
-
-/* Sinal atravessando o fundo do hero */
-.signal-scroll { animation: wave 48s linear infinite; }
-
-/* Linha de varredura passando pela tela */
-.scan-sweep { animation: sweep 3.2s cubic-bezier(.5, 0, .5, 1) infinite; }
-@keyframes sweep { from { transform: translateX(-100%); } to { transform: translateX(1000%); } }
-
-/* Barras de leitura dos sistemas */
-.scan-bar { animation: scanbar 2.8s ease-in-out infinite; transform-origin: left; }
-@keyframes scanbar { 0% { transform: scaleX(.08); } 60%, 100% { transform: scaleX(1); } }
 
 /* Faixa de sistemas rolando */
 .marquee { animation: marquee 96s linear infinite; } /* 3x mais longa que antes, mesma velocidade */
@@ -136,5 +115,9 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  /* avaliações paradas: a faixa vira rolagem lateral e as cópias repetidas somem */
+  .avaliacoes-faixa { overflow-x: auto; scroll-snap-type: x mandatory; }
+  .avaliacoes-faixa > [aria-hidden="true"] { display: none; }
+  .avaliacoes-faixa article { scroll-snap-align: center; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

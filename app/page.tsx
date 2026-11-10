@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Check, Clock, Crosshair, Cpu, MapPin, MessagesSquare, Navigation, Phone, Wrench, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SiteHeader } from '@/components/site-header';
@@ -6,6 +5,7 @@ import { Hero } from '@/components/hero';
 import { Services } from '@/components/services';
 import { Faq } from '@/components/faq';
 import { Testimonials } from '@/components/testimonials';
+import { About } from '@/components/about';
 import { ProcessCards, ProcessSection } from '@/components/process';
 import { SectionBadge, h2Class as h2 } from '@/components/section';
 import { WhatsAppFloat } from '@/components/whatsapp-float';
@@ -110,56 +110,12 @@ export default function Home() {
           <ProcessCards />
         </ProcessSection>
 
-        {/* Sobre */}
-        <section id="sobre" className="bg-graphite py-24 lg:py-32">
-          <div className="container grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-            <div className="reveal relative pb-16 sm:pb-20">
-              <Image
-                src="/img/oficina-noite.webp"
-                width={640}
-                height={640}
-                alt="Fachada da SA Kaizen à noite, com o letreiro iluminado e um carro estacionado em frente"
-                className="aspect-square w-full rounded-2xl object-cover ring-1 ring-white/10 sm:w-[85%]"
-              />
-              <Image
-                src="/img/oficina-dia.webp"
-                width={802}
-                height={457}
-                alt="Fachada da SA Kaizen durante o dia"
-                className="absolute right-0 bottom-0 w-[62%] rounded-xl object-cover shadow-2xl ring-4 ring-graphite"
-              />
-            </div>
-
-            <div className="reveal flex flex-col gap-6">
-              <SectionBadge>Sobre a SA Kaizen</SectionBadge>
-              <h2 className={h2}>Uma oficina dedicada a encontrar a causa.</h2>
-              <p className="text-lg leading-relaxed text-white/70">
-                A SA Kaizen é uma oficina especializada em diagnóstico automotivo em Manaus. Nosso trabalho começa onde muitas
-                oficinas param: na investigação técnica do que está realmente acontecendo com o seu carro.
-              </p>
-              <div className="flex gap-5 rounded-2xl border border-white/10 bg-background/60 p-6">
-                <span className="text-4xl leading-none font-bold text-brand" lang="ja" aria-hidden="true">改善</span>
-                <p className="text-sm leading-relaxed text-white/70">
-                  <strong className="font-semibold text-white">Kaizen</strong> é a palavra japonesa para melhoria contínua: observar,
-                  medir e fazer melhor a cada vez. É o espírito de um bom diagnóstico.
-                </p>
-              </div>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {['Oficina especializada', 'Diagnóstico avançado com osciloscópio', 'Motor, ABS, airbag e suspensão', 'Atendimento em Manaus - AM'].map((t) => (
-                  <li key={t} className="flex items-center gap-3 text-white/85">
-                    <span className="size-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+        <About />
 
         <Testimonials />
 
         {/* Localização */}
-        <section id="localizacao" className="py-24 lg:py-32">
+        <section id="localizacao" className="bg-graphite py-24 lg:py-32">
           <div className="container grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-14">
             <div className="reveal flex flex-col gap-8">
               <div className="flex flex-col gap-4">
@@ -211,7 +167,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="reveal relative min-h-[360px] overflow-hidden rounded-2xl border border-white/10 bg-graphite lg:min-h-[480px]">
+            <div className="reveal relative min-h-[360px] overflow-hidden rounded-2xl border border-white/10 bg-panel lg:min-h-[480px]">
               {/* mapa com cores invertidas para combinar com o tema escuro */}
               <iframe
                 src={mapsEmbed}
@@ -259,7 +215,7 @@ export default function Home() {
 
       <footer className="border-t border-white/10 bg-black pt-14 pb-28 lg:pb-14">
         <div className="container flex flex-col gap-10">
-          <div className="flex flex-col justify-between gap-10 md:flex-row">
+          <div className="flex flex-col justify-between gap-10 lg:flex-row">
             <div className="flex max-w-sm flex-col gap-4">
               <Logo subtitulo className="text-base" />
               <p className="text-sm leading-relaxed text-white/55">Oficina especializada em diagnóstico automotivo em Manaus - AM.</p>
@@ -267,7 +223,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-10 text-sm min-[420px]:grid-cols-2 sm:gap-16">
               <nav aria-label="Rodapé" className="flex flex-col gap-3">
                 <p className="font-mono text-xs tracking-[0.14em] text-white/40 uppercase">Navegue</p>
-                {[['Serviços', '#servicos'], ['Como funciona', '#como-funciona'], ['Sobre', '#sobre'], ['Localização', '#localizacao']].map(([t, h]) => (
+                {[['Serviços', '#servicos'], ['Como funciona', '#como-funciona'], ['Sobre', '#sobre'], ['Avaliações', '#avaliacoes'], ['Localização', '#localizacao']].map(([t, h]) => (
                   <a key={h} href={h} className="py-1 text-white/70 transition-colors hover:text-white">{t}</a>
                 ))}
               </nav>
@@ -277,7 +233,7 @@ export default function Home() {
                   <WhatsAppIcon className="size-4" />
                   {telefone}
                 </a>
-                <a href={instagramHref} target="_blank" rel="noopener" className="flex items-center gap-2 py-1 break-all text-white/70 transition-colors hover:text-white">
+                <a href={instagramHref} target="_blank" rel="noopener" className="flex items-center gap-2 py-1 text-white/70 transition-colors hover:text-white">
                   <InstagramIcon className="size-4" />
                   @{siteConfig.instagram}
                 </a>
